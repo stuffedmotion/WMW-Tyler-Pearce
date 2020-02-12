@@ -62,17 +62,22 @@
             >
 
             <span class="product-carousel__add-to-cart-text">
-            {{ 'products.product.add_to_cart' | t }}
+              {{ 'products.product.add_to_cart' | t }}
             </span>
           </button>
 
           {% if product.compare_at_price_min > 0 %}
-            <span class="product-carousel__sale">{{ 'products.product.on_sale' | t }}</span>
+            <span class="product-carousel__sale">
+              {{ 'products.product.on_sale' | t }}
+            </span>
           {% endif %}
         </div>
 
         <figcaption class="product-carousel__product-info">
-          <a class="product-carousel__product-title" href="{{ product.url | within: collection }}">
+          <a
+            class="product-carousel__product-title"
+            href="{{ product.url | within: collection }}"
+          >
             {{ product.title | escape }}
           </a>
 
