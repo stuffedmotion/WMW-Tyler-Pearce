@@ -56,7 +56,14 @@
             data-variant-id="{{ current_variant.id }}"
             data-quantity="1"
           >
+            <img
+              class="product-carousel__adding"
+              src="{{ 'loading.svg' | asset_url }}"
+            >
+
+            <span class="product-carousel__add-to-cart-text">
             {{ 'products.product.add_to_cart' | t }}
+            </span>
           </button>
 
           {% if product.compare_at_price_min > 0 %}

@@ -7,6 +7,7 @@
  * @namespace featuredCollection
  */
 import {register} from '@shopify/theme-sections';
+import $ from 'jquery';
 
 /**
  * Featured collection constructor
@@ -17,7 +18,38 @@ import {register} from '@shopify/theme-sections';
 register('featured-collection', {
 
   init() {
-    window.console.log('Initialising featured collection section');
+    // With more time this should be using a Queue
+    $('[js-ajax-cart]').click((e) => {
+      const elem = e.currentTarget;
+      const { variantId, quantity } = elem.dataset;
+
+      if (elem.classList.contains('adding')) {
+        return;
+      }
+
+      // Redirect to cart if already added
+      if (elem.classList.contains('added')) {
+        window.location.href = '/cart';
+        return;
+      }
+
+      elem.classList.add('adding');
+
+      $.ajax({
+        type: 'POST',
+        url: '/cart/add.js',
+        dataType: 'json',
+        data: { id: variantId, quantity },
+        success: () => {
+          elem.innerText = 'Added to cart!';
+          elem.classList.remove('adding');
+          elem.classList.add('added');
+        },
+        error: () => {
+          // handle error
+        }
+      });
+    })
   },
 
   publicMethod() {
