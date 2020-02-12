@@ -29,7 +29,6 @@
     "@shopify/theme-currency": "3.0.0",
     "@shopify/theme-images": "3.0.0",
     "@shopify/theme-sections": "3.0.0",
-    "flickity": "^2.2.1",
     "jquery": "^3.2.1",
     "lodash-es": "^4.17.4",
     "normalize.css": "^7.0.0"
