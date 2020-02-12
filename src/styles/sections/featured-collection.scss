@@ -2,8 +2,50 @@
  * Sections: Featured collection
  * -----------------------------------------------------------------------------
  * Base styling for the featured collection product grid.
- *
+ * -----------------------------------------------------------------------------
+ * As I'm developing on Windows (I know), I've opted to use a Google font
+ * similar to Helvetica Neue instead to ensure we both see the "same" thing
+ * for the purposes of this test only to avoid any unknown styling differences
+ * -----------------------------------------------------------------------------
+ * Some line-height ratios in the design we're long decimals which I've rounded
  */
+
 .featured-collection {
-  
+  padding: 30px 18px;
+
+  &__info-container {
+    margin: 0 auto 2.8rem;
+    max-width: 611px;
+    text-align: center;
+  }
+
+  &__title {
+    color: rgb(0, 51, 102);
+    font-size: 2.8rem;
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+  }
+
+  &__description {
+    color: rgb(155, 155, 155);
+    font-size: 1.4rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @include media-query($medium-up) {
+    &__info-container {
+      margin-bottom: 4.1rem;
+    }
+
+    &__title {
+      font-size: 4rem;
+      margin-bottom: 1.9rem;
+    }
+
+    &__description {
+      font-size: 1.8rem;
+      line-height: 1.4;
+    }
+  }
 }

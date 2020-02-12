@@ -6,23 +6,37 @@
 ------------------------------------------------------------------------------
 {% endcomment %}
 
-<section class="featured-collection" data-section-id="{{ section.id }}" data-section-type="featured-collection">
+<section
+  class="featured-collection"
+  data-section-id="{{ section.id }}"
+  data-section-type="featured-collection"
+>
   {%- assign collection = collections[section.settings.collection] -%}
 
-  <h2>{{ collection.title | escape }}</h2>
+  <div class="featured-collection__info-container">
+    <h1 class="featured-collection__title">{{ collection.title | escape }}</h1>
 
-  <p>{{ collection.description }}</p>
+    <p class="featured-collection__description">
+      {{ collection.description }}
+    </p>
+  </div>
 
   {% for product in collection.products limit: 6 %}
     {% assign current_variant = product.selected_or_first_available_variant %}
-  
+
     <a href="{{ product.url | within: collection }}">
       <div>
         {% if product.featured_image != blank %}
           {{ product.featured_image | img_url: 'large' | img_tag }}
         {% endif %}
-        
-        <span js-ajax-cart="addToCart" data-variant-id="{{ current_variant.id }}" data-quantity="1">Add to cart</span>
+
+        <span
+          js-ajax-cart="addToCart"
+          data-variant-id="{{ current_variant.id }}"
+          data-quantity="1"
+        >
+          Add to cart
+        </span>
       </div>
 
       <div>
