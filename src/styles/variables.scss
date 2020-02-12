@@ -1,6 +1,12 @@
 /**
  * Text colors.
  */
+
+// If I had access to the Shopify backend, I could have set/used the
+// --color-accent & --color-body-text variables as an alternative
+$accent-color: rgb(0, 51, 102);
+$body-color: rgb(155, 155, 155);
+
 $color-body-text: 'aktiv-grotesk', sans-serif;
 
 /**
