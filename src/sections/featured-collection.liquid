@@ -2,52 +2,84 @@
 ------------------------------------------------------------------------------
   Section: Featured collection
   - This the main section that you should be working on
-  - Main styling is done in /styles/sections/featured-collection.scss
+  - Main styling is done in /styles/sections/feat-collection.scss
 ------------------------------------------------------------------------------
 {% endcomment %}
 
 <section
-  class="featured-collection"
+  class="feat-collection"
   data-section-id="{{ section.id }}"
-  data-section-type="featured-collection"
+  data-section-type="feat-collection"
 >
   {%- assign collection = collections[section.settings.collection] -%}
 
-  <div class="featured-collection__info-container">
-    <h1 class="featured-collection__title">{{ collection.title | escape }}</h1>
+  <div class="feat-collection__info-container">
+    <h1 class="feat-collection__title">{{ collection.title | escape }}</h1>
 
-    <p class="featured-collection__description">
+    <p class="feat-collection__description">
       {{ collection.description }}
     </p>
   </div>
 
-  {% for product in collection.products limit: 6 %}
-    {% assign current_variant = product.selected_or_first_available_variant %}
+  <div
+    class="feat-collection__carousel product-carousel"
+    data-flickity='{"groupCells": true, "contain": true}'
+    >
+    {% for product in collection.products limit: 6 %}
+      {% assign current_variant = product.selected_or_first_available_variant %}
 
-    <a href="{{ product.url | within: collection }}">
-      <div>
-        {% if product.featured_image != blank %}
-          {{ product.featured_image | img_url: 'large' | img_tag }}
-        {% endif %}
+      <figure class="product-carousel__item">
+        <div class="product-carousel__image-container">
+          <a href="{{ product.url | within: collection }}">
+            {% if product.featured_image != blank %}
+              {% include 'responsive-image' with
+                image: product.featured_image,
+                max_width: 1024,
+                max_height: 1024,
+              %}
 
-        <span
-          js-ajax-cart="addToCart"
-          data-variant-id="{{ current_variant.id }}"
-          data-quantity="1"
-        >
-          Add to cart
-        </span>
-      </div>
+              {% include 'responsive-image' with
+                image: product.images.last,
+                max_width: 1024,
+                max_height: 1024,
+                wrapper_class: 'product-carousel__image-secondary'
+              %}
 
-      <div>
-        <p>{{ product.title | escape }}</p>
+            {% else %}
+              <img src="https://via.placeholder.com/300x471" />
+            {% endif %}
+          </a>
 
-        <span>
-          {% include 'product-price' %}
-        </span>
-      </div>
-    </a>
-  {% endfor %}
+          <button
+            class="product-carousel__add-to-cart button button--secondary"
+            js-ajax-cart="addToCart"
+            data-variant-id="{{ current_variant.id }}"
+            data-quantity="1"
+          >
+            {{ 'products.product.add_to_cart' | t }}
+          </button>
+
+          {% if product.compare_at_price_min > 0 %}
+            <span class="product-carousel__sale">{{ 'products.product.on_sale' | t }}</span>
+          {% endif %}
+        </div>
+
+        <figcaption class="product-carousel__product-info">
+          <a class="product-carousel__product-title" href="{{ product.url | within: collection }}">
+            {{ product.title | escape }}
+          </a>
+
+          <div class="product-carousel__product-price">
+            {{ product.price | money }}
+          </div>
+        </figcaption>
+      </figure>
+    {% endfor %}
+  </div>
+
+  <a href="{{ collection.url }}" class="button" >
+    {{ 'collections.general.view_collection' | t }}
+  </a>
 </section>
 
 {% schema %}
