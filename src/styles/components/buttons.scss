@@ -1,11 +1,37 @@
+@mixin button-color($bg, $fg) {
+  background-color: $bg;
+  color: $fg;
+
+  &:hover, &:active {
+    background-color: $fg;
+    color: $bg;
+  }
+}
+
 .button {
+  @include button-color($accent-color, rgb(255, 255, 255));
   appearance: none;
-  border: 0;
+  border: 1px solid $accent-color;
   display: inline-block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 10px 12px;
   text-align: center;
   text-decoration: none;
+  transition: background-color 0.1s, color 0.1s;
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;
   width: auto;
+  will-change: background-color, color;
+
+  &#{&}--secondary {
+    @include button-color(rgb(255, 255, 255), $accent-color);
+    border: 0;
+  }
+
+  @include media-query($medium-up) {
+    font-size: 1.8rem;
+    padding: 16px 25px;
+  }
 }
